@@ -1,0 +1,179 @@
+<mujoco model="lapi">
+  <compiler angle="radian" meshdir="../meshes"/>
+    <option timestep="0.001"  tolerance="1e-10" solver="Newton" jacobian="dense" cone="pyramidal" gravity="0 0 -9.81">  <!--integrator="RK4"  iteration="50"-->
+        <flag contact="enable" energy="enable"/>
+    </option>
+    <size njmax="500" nconmax="1000" />  
+    <default>
+        <light castshadow="false" />
+        <geom rgba="0.784 0.784 0.784 1"/>
+    <default class="visual">
+      <geom contype="0" conaffinity="0" group="1" type="mesh"/>
+    </default>
+    <default class="collision">
+      <geom contype="1" conaffinity="1" friction="1.0 0.3 0.3" margin="0.001" group="0"/>
+    </default>
+        <joint damping="0.1" frictionloss="2" armature="0.01"/>
+    </default>
+
+  <asset>
+    <mesh name="base_link"          file="base_link.STL"/>
+    <mesh name="Link_hip_r_roll"    file="Hip_R_Roll_Link.STL"/>
+    <mesh name="Link_hip_r_yaw"     file="Hip_R_Yaw_Link.STL"/>
+    <mesh name="Link_hip_r_pitch"   file="Hip_R_Pitch_Link.STL"/>
+    <mesh name="Link_knee_r_pitch"  file="Knee_R_Pitch_Link.STL"/>
+    <mesh name="Link_ankle_r_pitch" file="Ankle_R_Pitch_Link.STL"/>
+    <mesh name="Link_ankle_r_roll"  file="Ankle_R_Roll_Link.STL"/>
+    <mesh name="Link_hip_l_roll"    file="Hip_L_Roll_Link.STL"/>
+    <mesh name="Link_hip_l_yaw"     file="Hip_L_Yaw_Link.STL"/>
+    <mesh name="Link_hip_l_pitch"   file="Hip_L_Pitch_Link.STL"/>
+    <mesh name="Link_knee_l_pitch"  file="Knee_L_Pitch_Link.STL"/>
+    <mesh name="Link_ankle_l_pitch" file="Ankle_L_Pitch_Link.STL"/>
+    <mesh name="Link_ankle_l_roll"  file="Ankle_L_Roll_Link.STL"/>
+
+    <!-- Checkerboard texture and material for the floor -->
+    <texture name="checker_tex" type="2d" builtin="checker" rgb1="0.85 0.85 0.85" rgb2="0.15 0.15 0.15" width="512" height="512"/>
+    <material name="mat_checker" texture="checker_tex" texrepeat="10 10" specular="0.2" shininess="0.1" reflectance="0.05"/>
+  </asset>
+
+  <worldbody>
+    <light directional="true" pos="0 0 3" dir="0 0 -1" diffuse="0.95 0.95 0.95" specular="0.3 0.3 0.3" castshadow="true"/>
+    <light directional="false" pos="1 1 2" diffuse="0.35 0.35 0.35" specular="0.1 0.1 0.1"/>
+
+    <geom name="floor" type="plane" size="5 5 0.1" pos="0 0 0" contype="1" conaffinity="1" friction="1 0.3 0.3" material="mat_checker"/>
+
+    <body name="base_link" pos="0 0 1.05" euler ="0 0 0">
+      <freejoint name="float_base" />
+      <inertial pos="0.027128 0.000293 0.10205" quat="1 0 0 0" mass="28" diaginertia="1.4945 1.222 1.0953"/>
+      <geom class="visual" mesh="base_link" type="mesh" rgba="1 1 1 1"/>
+      <geom class="collision" size="0.1 0.165 0.175" pos="0 0 0.2" type="box" rgba="1 1 1 1"/>
+      <geom class="collision" size="0.06 0.045" pos="0.01 0.24 0.3" quat="0.707388 0 0.706825 0" type="cylinder" rgba="1 1 1 1"/>
+      <geom class="collision" size="0.04 0.075" pos="0.01 0.25 0.13" type="cylinder" rgba="1 1 1 1"/>
+      <geom class="collision" size="0.04 0.2" pos="0.26 0.25 0.08" quat="0.707388 0 0.706825 0" type="cylinder" rgba="1 1 1 1"/>
+      <geom class="collision" size="0.06 0.045" pos="0.01 -0.24 0.3" quat="0.707388 0 0.706825 0" type="cylinder" rgba="1 1 1 1"/>
+      <geom class="collision" size="0.04 0.075" pos="0.01 -0.25 0.13" type="cylinder" rgba="1 1 1 1"/>
+      <geom class="collision" size="0.04 0.2" pos="0.26 -0.25 0.08" quat="0.707388 0 0.706825 0" type="cylinder" rgba="1 1 1 1"/>
+      <geom class="collision" size="0.07 0.036" pos="-0.08 -0.125 -0.1" quat="0.707388 0 0.706825 0" type="cylinder" rgba="1 1 1 1"/>
+      <geom class="collision" size="0.07 0.036" pos="-0.08 0.125 -0.1" quat="0.707388 0 0.706825 0" type="cylinder" rgba="1 1 1 1"/>
+      <geom class="collision" size="0.05 0.035" pos="0 0 -0.05" type="cylinder" rgba="1 1 1 1"/>
+
+      <body name="Hip_L_Roll_Link" pos="-0.042 0.1275 -0.097">
+        <inertial pos="0.078109 0 0.024666" quat="0.0034095 0.814051 0.00396144 0.580769" mass="2.28" diaginertia="0.00399817 0.00375397 0.00244785"/>
+        <joint name="Hip_L_Roll_Joint" pos="0 0 0" axis="1 0 0" range="-0.227 0.523" actuatorfrcrange="-200 200"/>
+        <geom class="visual" mesh="Link_hip_l_roll" type="mesh" rgba="0.89804 0.91765 0.92941 1"/>
+        <geom class="collision" size="0.07 0.0175" pos="0.09 0 -0.006" type="cylinder" rgba="0.89804 0.91765 0.92941 1"/>
+        <geom class="collision" size="0.05 0.03" pos="0.09 0 0.05" type="cylinder" rgba="0.89804 0.91765 0.92941 1"/>
+
+        <body name="Hip_L_Yaw_Link" pos="0.087 0 -0.0135">
+          <inertial pos="0.000217 -0.004903 -0.085363" quat="0.999908 0.000719646 -0.0125494 0.00504253" mass="3.738" diaginertia="0.0088458 0.00823495 0.00450026"/>
+          <joint name="Hip_L_Yaw_Joint" pos="0 0 0" axis="0 0 1" range="-0.5 0.65" actuatorfrcrange="-200 200"/>
+          <geom class="visual" mesh="Link_hip_l_yaw" type="mesh" rgba="0.89804 0.91765 0.92941 1"/>
+          <geom class="collision" size="0.07 0.065" pos="0 0 -0.11" quat="0.707388 0.706825 0 0" type="cylinder" rgba="0.89804 0.91765 0.92941 1"/>
+
+          <body name="Hip_L_Pitch_Link" pos="0 0 -0.10595">
+            <inertial pos="-7.7e-05 0.02564 -0.167614" quat="0.99923 0.0391185 -0.00304178 0.000485083" mass="6.22" diaginertia="0.0567306 0.0534788 0.0124466"/>
+            <joint name="Hip_L_Pitch_Joint" pos="0 0 0" axis="0 1 0" range="-0.78 0.78" actuatorfrcrange="-200 200"/>
+            <geom class="visual" mesh="Link_hip_l_pitch" type="mesh" rgba="0.89804 0.91765 0.92941 1"/>
+            <geom class="collision" size="0.08 0.06" pos="0 0.035 -0.16" quat="0.707388 0.706825 0 0" type="cylinder" rgba="0.89804 0.91765 0.92941 1"/>
+            <geom class="collision" size="0.065 0.035 0.125" pos="0 0 -0.22" type="box" rgba="0.89804 0.91765 0.92941 1"/>
+
+            <body name="Knee_L_Pitch_Link" pos="0 0 -0.34">
+              <inertial pos="-0.002029 -8.4e-05 -0.156302" quat="0.708888 -0.00197532 0.00439659 0.705305" mass="3.32" diaginertia="0.0301493 0.0297803 0.00193338"/>
+              <joint name="Knee_L_Pitch_Joint" pos="0 0 0" axis="0 1 0" range="0 1.2" actuatorfrcrange="-200 200"/>
+              <geom class="visual" mesh="Link_knee_l_pitch" type="mesh" rgba="0.89804 0.91765 0.92941 1"/>
+              <geom class="collision" size="0.05 0.04 0.15" pos="0 0 -0.22" type="box" rgba="0.89804 0.91765 0.92941 1"/>
+
+              <body name="Ankle_L_Pitch_Link" pos="0 0 -0.4">
+                <inertial pos="0 0 0" quat="0.5 0.5 -0.5 0.5" mass="0.088" diaginertia="1.4e-05 8e-06 8e-06"/>
+                <joint name="Ankle_L_Pitch_Joint" pos="0 0 0" axis="0 1 0" range="-0.78 0.57" actuatorfrcrange="-200 200"/>
+                <geom class="visual" mesh="Link_ankle_l_pitch" type="mesh" rgba="0.89804 0.91765 0.92941 1"/>
+
+                <body name="Ankle_L_Roll_Link">
+                  <inertial pos="0.006111 0 -0.039985" quat="0 0.749246 0 0.662292" mass="0.758" diaginertia="0.00396797 0.003773 0.000717025"/>
+                  <joint name="Ankle_L_Roll_Joint" pos="0 0 0" axis="1 0 0" range="-0.35 0.35" actuatorfrcrange="-200 200"/>
+                  <geom class="visual" mesh="Link_ankle_l_roll" type="mesh" rgba="0.89804 0.91765 0.92941 1"/>
+                  <geom name="left_sole" class="collision" condim="4" friction="1 1 1" size="0.125 0.05 0.0125" pos="0.037 0 -0.06" type="box" rgba="0.89804 0.91765 0.92941 1"/>
+                  <site name="lf-tc" type="box" size="0.125 0.05 0.0125"  pos="0.037 0 -0.06"  rgba="0 1 0 0" />
+                </body>
+              </body>
+            </body>
+          </body>
+        </body>
+      </body>
+
+      <body name="Hip_R_Roll_Link" pos="-0.042 -0.1275 -0.097">
+        <inertial pos="0.078109 0 0.024666" quat="0.0034095 0.814051 0.00396144 0.580769" mass="2.28" diaginertia="0.00399817 0.00375397 0.00244785"/>
+        <joint name="Hip_R_Roll_Joint" pos="0 0 0" axis="1 0 0" range="-0.52 0.23" actuatorfrcrange="-200 200"/>
+        <geom class="visual" mesh="Link_hip_r_roll" type="mesh" rgba="1 1 1 1"/>
+        <geom class="collision" size="0.07 0.0175" pos="0.09 0 -0.006" type="cylinder" rgba="1 1 1 1"/>
+        <geom class="collision" size="0.05 0.03" pos="0.09 0 0.05" type="cylinder" rgba="1 1 1 1"/>
+
+        <body name="Hip_R_Yaw_Link" pos="0.087 0 -0.0135">
+          <inertial pos="0.000217 0.004903 -0.085363" quat="0.999908 -0.000719646 -0.0125494 -0.00504253" mass="4.801" diaginertia="0.0088458 0.00823495 0.00450026"/>
+          <joint name="Hip_R_Yaw_Joint" pos="0 0 0" axis="0 0 1" range="-0.65 0.5" actuatorfrcrange="-200 200"/>
+          <geom class="visual" mesh="Link_hip_r_yaw" type="mesh" rgba="0.89804 0.91765 0.92941 1"/>
+          <geom class="collision" size="0.07 0.065" pos="0 0 -0.11" quat="0.707388 0.706825 0 0" type="cylinder" rgba="0.89804 0.91765 0.92941 1"/>
+
+          <body name="Hip_R_Pitch_Link" pos="0 0 -0.10595">
+            <inertial pos="-7e-06 -0.02564 -0.167614" quat="0.99923 -0.0391185 -0.00304178 -0.000485083" mass="6.22" diaginertia="0.0567306 0.0534788 0.0124466"/>
+            <joint name="Hip_R_Pitch_Joint" pos="0 0 0" axis="0 1 0" range="-0.78 0.78" actuatorfrcrange="-200 200"/>
+            <geom class="visual" mesh="Link_hip_r_pitch" type="mesh" rgba="0.89804 0.91765 0.92941 1"/>
+            <geom class="collision" size="0.08 0.06" pos="0 -0.035 -0.16" quat="0.707388 0.706825 0 0" type="cylinder" rgba="0.89804 0.91765 0.92941 1"/>
+            <geom class="collision" size="0.065 0.035 0.125" pos="0 0 -0.22" type="box" rgba="0.89804 0.91765 0.92941 1"/>
+
+            <body name="Knee_R_Pitch_Link" pos="0 0 -0.34">
+              <inertial pos="-0.002029 8.4e-05 -0.156302" quat="0.706974 0.00196317 -0.00440215 0.707223" mass="3.32" diaginertia="0.0301493 0.0297803 0.00193338"/>
+              <joint name="Knee_R_Pitch_Joint" pos="0 0 0" axis="0 1 0" range="0 1.2" actuatorfrcrange="-200 200"/>
+              <geom class="visual" mesh="Link_knee_r_pitch" type="mesh" rgba="0.89804 0.91765 0.92941 1"/>
+              <geom class="collision" size="0.05 0.04 0.15" pos="0 0 -0.22" type="box" rgba="0.64706 0.61961 0.58824 1"/>
+
+              <body name="Ankle_R_Pitch_Link" pos="0 0 -0.4">
+                <inertial pos="0 0 0" mass="0.088" diaginertia="8e-06 8e-06 1.4e-06"/>
+                <joint name="Ankle_R_Pitch_Joint" pos="0 0 0" axis="0 1 0" range="-0.78 0.57" actuatorfrcrange="-200 200"/>
+                <geom class="visual" mesh="Link_ankle_r_pitch" type="mesh" rgba="0.89804 0.91765 0.92941 1"/>
+
+                <body name="Ankle_R_Roll_Link">
+                  <inertial pos="0.006111 0 -0.039985" quat="0 0.749246 0 0.662292" mass="0.758" diaginertia="0.00396797 0.003773 0.000717025"/>
+                  <joint name="Ankle_R_Roll_Joint" pos="0 0 0" axis="1 0 0" range="-0.35 0.35" actuatorfrcrange="-200 200"/>
+                  <geom class="visual" mesh="Link_ankle_r_roll" type="mesh" rgba="0.89804 0.91765 0.92941 1"/>
+                  <geom name="right_sole" class="collision" condim="4" friction="1 1 1" size="0.125 0.05 0.0125" pos="0.037 0 -0.06" type="box" rgba="0.89804 0.91765 0.92941 1"/>
+                  <site name="rf-tc" type="box" size="0.125 0.05 0.0125"  pos="0.037 0 -0.06"  rgba="0 1 0 0" />
+                </body>
+              </body>
+            </body>
+          </body>
+        </body>
+      </body>
+
+      <body name="site" pos="0 0.133 0.03605">
+        <site name="imu" pos="0 0 0"/>
+      </body>
+
+    </body>
+  </worldbody>
+
+  <actuator>
+    <motor name="m_Hip_L_Roll"    joint="Hip_L_Roll_Joint"    gear="1" ctrllimited="true" ctrlrange="-200 200"/>
+    <motor name="m_Hip_L_Yaw"     joint="Hip_L_Yaw_Joint"     gear="1" ctrllimited="true" ctrlrange="-200 200"/>
+    <motor name="m_Hip_L_Pitch"   joint="Hip_L_Pitch_Joint"   gear="1" ctrllimited="true" ctrlrange="-200 200"/>
+    <motor name="m_Knee_L_Pitch"  joint="Knee_L_Pitch_Joint"  gear="1" ctrllimited="true" ctrlrange="-200 200"/>
+    <motor name="m_Ankle_L_Pitch" joint="Ankle_L_Pitch_Joint" gear="1" ctrllimited="true" ctrlrange="-200 200"/>
+    <motor name="m_Ankle_L_Roll"  joint="Ankle_L_Roll_Joint"  gear="1" ctrllimited="true" ctrlrange="-200 200"/>
+    <motor name="Hip_R_Roll"      joint="Hip_R_Roll_Joint"    gear="1" ctrllimited="true" ctrlrange="-200 200"/>
+    <motor name="Hip_R_Yaw"       joint="Hip_R_Yaw_Joint"     gear="1" ctrllimited="true" ctrlrange="-200 200"/>
+    <motor name="Hip_R_Pitch"     joint="Hip_R_Pitch_Joint"   gear="1" ctrllimited="true" ctrlrange="-200 200"/>
+    <motor name="Knee_R_Pitch"    joint="Knee_R_Pitch_Joint"  gear="1" ctrllimited="true" ctrlrange="-200 200"/>
+    <motor name="Ankle_R_Pitch"   joint="Ankle_R_Pitch_Joint" gear="1" ctrllimited="true" ctrlrange="-200 200"/>
+    <motor name="Ankle_R_Roll"    joint="Ankle_R_Roll_Joint"  gear="1" ctrllimited="true" ctrlrange="-200 200"/>
+  </actuator>
+
+  <sensor>
+    <framequat name="baselink-quat" objtype="site" objname="imu" />
+    <velocimeter name="baselink-velocity" site="imu" />
+    <gyro name="baselink-gyro" site="imu" />
+    <accelerometer name="baselink-baseAcc" site="imu" />
+    <touch name="lf-touch" site="lf-tc" />
+    <touch name="rf-touch" site="rf-tc" />
+  </sensor>
+
+</mujoco>

@@ -1,0 +1,520 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<robot name="lapi_description">
+  <link name="base_link">
+    <inertial>
+      <origin xyz="0.027128 0.000293 0.10205" rpy="0 0 0" />
+      <mass value="28" />
+      <inertia
+        ixx="1.4945"
+        ixy="-0.005071"
+        ixz="0.10439"
+        iyy="1.222"
+        iyz="0.000433"
+        izz="1.0953" />
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="package://lapi_description/meshes/base_link.STL" />
+      </geometry>
+      <material name="">
+        <color rgba="1 1 1 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0.2" rpy="0 0 0" />
+      <geometry>
+        <box size="0.20 0.33 0.35" />
+      </geometry>
+    </collision>
+    <collision>
+      <origin xyz="0.01 0.24 0.3" rpy="0 1.57 0" />
+      <geometry>
+        <cylinder radius="0.06" length="0.09 "/>
+      </geometry>
+    </collision>
+    <collision>
+      <origin xyz="0.01 0.25 0.13" rpy="0 0 0" />
+      <geometry>
+        <cylinder radius="0.04" length="0.15 "/>
+      </geometry>
+    </collision>
+    <collision>
+      <origin xyz="0.26 0.25 0.08" rpy="0 1.57 0" />
+      <geometry>
+        <cylinder radius="0.04" length="0.4 "/>
+      </geometry>
+    </collision>
+    <collision>
+      <origin xyz="0.01 -0.24 0.3" rpy="0 1.57 0" />
+      <geometry>
+        <cylinder radius="0.06" length="0.09 "/>
+      </geometry>
+    </collision>
+    <collision>
+      <origin xyz="0.01 -0.25 0.13" rpy="0 0 0" />
+      <geometry>
+        <cylinder radius="0.04" length="0.15 "/>
+      </geometry>
+    </collision>
+    <collision>
+      <origin xyz="0.26 -0.25 0.08" rpy="0 1.57 0" />
+      <geometry>
+        <cylinder radius="0.04" length="0.4 "/>
+      </geometry>
+    </collision>
+    <collision>
+      <origin xyz="-0.08 -0.125 -0.1" rpy="0 1.57 0" />
+      <geometry>
+        <cylinder radius="0.07" length="0.072 "/>
+      </geometry>
+    </collision>
+    <collision>
+      <origin xyz="-0.08 0.125 -0.1" rpy="0 1.57 0" />
+      <geometry>
+        <cylinder radius="0.07" length="0.072"/>
+      </geometry>
+    </collision>
+    <collision>
+      <origin xyz="0 0 -0.05" rpy="0 0 0" />
+      <geometry>
+        <cylinder radius="0.05" length="0.07"/>
+      </geometry>
+    </collision>
+  </link>
+  <link name="Hip_L_Roll_Link">
+    <inertial>
+      <origin xyz="0.078109 0 0.024666" rpy="0 0 0" />
+      <mass value="2.28" />
+      <inertia
+        ixx="0.002612"
+        ixy="2E-06"
+        ixz="0.000477"
+        iyy="0.003754"
+        iyz="2E-06"
+        izz="0.003834" />
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="package://lapi_description/meshes/Hip_L_Roll_Link.STL" />
+      </geometry>
+      <material name="">
+        <color rgba="0.89804 0.91765 0.92941 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0.09 0 -0.006" rpy="0 0 0" />
+      <geometry>
+        <cylinder radius="0.07" length="0.035" />
+      </geometry>
+    </collision>
+    <collision>
+      <origin xyz="0.09 0 0.05" rpy="0 0 0" />
+      <geometry>
+        <cylinder radius="0.05" length="0.06" />
+      </geometry>
+    </collision>
+  </link>
+  <joint name="Hip_L_Roll_Joint" type="revolute">
+    <origin xyz="-0.042 0.1275 -0.097" rpy="0 0 0" />
+    <parent link="base_link" />
+    <child link="Hip_L_Roll_Link" />
+    <axis xyz="1 0 0" />
+    <limit lower="-0.227" upper="0.523" effort="200" velocity="5" />
+  </joint>
+  <link name="Hip_L_Yaw_Link">
+    <inertial>
+      <origin xyz="0.000217 -0.004903 -0.085363" rpy="0 0 0" />
+      <mass value="3.738" />
+      <inertia
+        ixx="0.008843"
+        ixy="6E-06"
+        ixz="0.000109"
+        iyy="0.008235"
+        iyz="6E-06"
+        izz="0.004503" />
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="package://lapi_description/meshes/Hip_L_Yaw_Link.STL" />
+      </geometry>
+      <material name="">
+        <color rgba="0.89804 0.91765 0.92941 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 -0.11" rpy="1.57 0 0" />
+      <geometry>
+        <cylinder radius="0.07" length="0.13"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="Hip_L_Yaw_Joint" type="revolute">
+    <origin xyz="0.087 0 -0.0135" rpy="0 0 0" />
+    <parent link="Hip_L_Roll_Link" />
+    <child link="Hip_L_Yaw_Link" />
+    <axis xyz="0 0 1" />
+    <limit lower="-0.5" upper="0.65" effort="200" velocity="5" />
+  </joint>
+  <link name="Hip_L_Pitch_Link">
+    <inertial>
+      <origin xyz="-7.7E-05 0.02564 -0.167614" rpy="0 0 0" />
+      <mass value="6.22" />
+      <inertia
+        ixx="0.056729"
+        ixy="-1.7E-05"
+        ixz="0.000267"
+        iyy="0.053228"
+        iyz="0.003198"
+        izz="0.012699" />
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="package://lapi_description/meshes/Hip_L_Pitch_Link.STL" />
+      </geometry>
+      <material name="">
+        <color rgba="0.89804 0.91765 0.92941 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 0.035 -0.16" rpy="1.57 0 0" />
+      <geometry>
+        <cylinder radius="0.08" length="0.12"/>
+      </geometry>
+    </collision>
+    <collision>
+      <origin xyz="0 0 -0.22" rpy="0 0 0" />
+      <geometry>
+        <box size="0.13 0.07 0.25"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="Hip_L_Pitch_Joint" type="revolute">
+    <origin
+      xyz="0 0 -0.10595"
+      rpy="0 0 0" />
+    <parent link="Hip_L_Yaw_Link" />
+    <child link="Hip_L_Pitch_Link" />
+    <axis xyz="0 1 0" />
+    <limit lower="-0.78" upper="0.78" effort="200" velocity="5" />
+  </joint>
+  <link name="Knee_L_Pitch_Link">
+    <inertial>
+      <origin xyz="-0.002029 -8.4E-05 -0.156302" rpy="0 0 0" />
+      <mass value="3.32" />
+      <inertia
+        ixx="0.02978"
+        ixy="1E-06"
+        ixz="-9.6E-05"
+        iyy="0.030147"
+        iyz="-0.000254"
+        izz="0.001936" />
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="package://lapi_description/meshes/Knee_L_Pitch_Link.STL" />
+      </geometry>
+      <material name="">
+        <color rgba="0.89804 0.91765 0.92941 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 -0.22" rpy="0 0 0" />
+      <geometry>
+        <box size="0.1 0.08 0.3"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="Knee_L_Pitch_Joint" type="revolute">
+    <origin xyz="0 0 -0.34" rpy="0 0 0" />
+    <parent link="Hip_L_Pitch_Link" />
+    <child link="Knee_L_Pitch_Link" />
+    <axis xyz="0 1 0" />
+    <limit lower="0" upper="1.2" effort="200" velocity="5" />
+  </joint>
+  <link name="Ankle_L_Pitch_Link">
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <mass value="0.088" />
+      <inertia
+        ixx="8E-06"
+        ixy="0"
+        ixz="0"
+        iyy="8E-06"
+        iyz="0"
+        izz="1.4E-05" />
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="package://lapi_description/meshes/Ankle_L_Pitch_Link.STL" />
+      </geometry>
+      <material name="">
+        <color rgba="0.65098 0.61961 0.58824 1" />
+      </material>
+    </visual>
+  </link>
+  <joint name="Ankle_L_Pitch_Joint" type="revolute">
+    <origin xyz="0 0 -0.4" rpy="0 0 0" />
+    <parent link="Knee_L_Pitch_Link" />
+    <child link="Ankle_L_Pitch_Link" />
+    <axis xyz="0 1 0" />
+    <limit lower="-0.78" upper="0.57" effort="200" velocity="5" />
+  </joint>
+  <link name="Ankle_L_Roll_Link">
+    <inertial>
+      <origin xyz="0.006111 0 -0.039985" rpy="0 0 0" /> 
+      <mass value="0.758" />
+      <inertia
+        ixx="0.000766"
+        ixy="0"
+        ixz="0.000396"
+        iyy="0.003773"
+        iyz="0"
+        izz="0.003919" />
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="package://lapi_description/meshes/Ankle_L_Roll_Link.STL" />
+      </geometry>
+      <material name="">
+        <color rgba="0.89804 0.91765 0.92941 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0.037 0 -0.06" rpy="0 0 0" />
+      <geometry>
+        <box size="0.25 0.1 0.025" />
+      </geometry>
+    </collision>
+  </link>
+  <joint name="Ankle_L_Roll_Joint" type="revolute">
+    <origin xyz="0 0 0" rpy="0 0 0" />
+    <parent link="Ankle_L_Pitch_Link" />
+    <child link="Ankle_L_Roll_Link" />
+    <axis xyz="1 0 0" />
+    <limit lower="-0.35" upper="0.35" effort="200" velocity="5" />
+  </joint>
+  <link name="Hip_R_Roll_Link">
+    <inertial>
+      <origin xyz="0.078109 0 0.024666" rpy="0 0 0" />
+      <mass value="2.28" />
+      <inertia
+        ixx="0.002612"
+        ixy="2E-06"
+        ixz="0.000477"
+        iyy="0.003754"
+        iyz="2E-06"
+        izz="0.003834" />
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="package://lapi_description/meshes/Hip_R_Roll_Link.STL" />
+      </geometry>
+      <material name="">
+        <color rgba="1 1 1 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0.09 0 -0.006" rpy="0 0 0" />
+      <geometry>
+        <cylinder radius="0.07" length="0.035" />
+      </geometry>
+    </collision>
+    <collision>
+      <origin xyz="0.09 0 0.05" rpy="0 0 0" />
+      <geometry>
+        <cylinder radius="0.05" length="0.06" />
+      </geometry>
+    </collision>
+  </link>
+  <joint name="Hip_R_Roll_Joint" type="revolute">
+    <origin xyz="-0.042 -0.1275 -0.097" rpy="0 0 0" />
+    <parent link="base_link" />
+    <child link="Hip_R_Roll_Link" />
+    <axis xyz="1 0 0" />
+    <limit lower="-0.52" upper="0.23" effort="200" velocity="5" />
+  </joint>
+  <link name="Hip_R_Yaw_Link">
+    <inertial>
+      <origin xyz="0.000217 0.004903 -0.085363" rpy="0 0 0" />
+      <mass value="4.801" />
+      <inertia
+        ixx="0.008843"
+        ixy="-6E-06"
+        ixz="0.000109"
+        iyy="0.008235"
+        iyz="-6E-06"
+        izz="0.004503" />
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="package://lapi_description/meshes/Hip_R_Yaw_Link.STL" />
+      </geometry>
+      <material name="">
+        <color rgba="0.89804 0.91765 0.92941 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 -0.11" rpy="1.57 0 0" />
+      <geometry>
+        <cylinder radius="0.07" length="0.13"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="Hip_R_Yaw_Joint" type="revolute">
+    <origin xyz="0.087 0 -0.0135" rpy="0 0 0" />
+    <parent link="Hip_R_Roll_Link" />
+    <child link="Hip_R_Yaw_Link" />
+    <axis xyz="0 0 1" />
+    <limit lower="-0.65" upper="0.5" effort="200" velocity="5" />
+  </joint>
+  <link name="Hip_R_Pitch_Link">
+    <inertial>
+      <origin xyz="-7E-06 -0.02564 -0.167614" rpy="0 0 0" />
+      <mass value="6.22" />
+      <inertia
+        ixx="0.056729"
+        ixy="1.7E-05"
+        ixz="0.000267"
+        iyy="0.053228"
+        iyz="-0.003198"
+        izz="0.012699" />
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="package://lapi_description/meshes/Hip_R_Pitch_Link.STL" />
+      </geometry>
+      <material name="">
+        <color rgba="0.89804 0.91765 0.92941 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 -0.035 -0.16" rpy="1.57 0 0" />
+      <geometry>
+        <cylinder radius="0.08" length="0.12"/>
+      </geometry>
+    </collision>
+    <collision>
+      <origin xyz="0 0 -0.22" rpy="0 0 0" />
+      <geometry>
+        <box size="0.13 0.07 0.25"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="Hip_R_Pitch_Joint" type="revolute">
+    <origin xyz="0 0 -0.10595" rpy="0 0 0" />
+    <parent link="Hip_R_Yaw_Link" />
+    <child link="Hip_R_Pitch_Link" />
+    <axis xyz="0 1 0" />
+    <limit lower="-0.78" upper="0.78" effort="200" velocity="5" />
+  </joint>
+  <link name="Knee_R_Pitch_Link">
+    <inertial>
+      <origin xyz="-0.002029 8.4E-05 -0.156302" rpy="0 0 0" />
+      <mass value="3.32" />
+      <inertia
+        ixx="0.02978"
+        ixy="-1E-06"
+        ixz="9.6E-05"
+        iyy="0.030147"
+        iyz="0.000254"
+        izz="0.001936" />
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="package://lapi_description/meshes/Knee_R_Pitch_Link.STL" />
+      </geometry>
+      <material name="">
+        <color rgba="0.64706 0.61961 0.58824 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 -0.22" rpy="0 0 0" />
+      <geometry>
+        <box size="0.1 0.08 0.3"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="Knee_R_Pitch_Joint" type="revolute">
+    <origin xyz="0 0 -0.34" rpy="0 0 0" />
+    <parent link="Hip_R_Pitch_Link" />
+    <child link="Knee_R_Pitch_Link" />
+    <axis xyz="0 1 0" />
+    <limit lower="0" upper="1.2" effort="200" velocity="5" />
+  </joint>
+  <link name="Ankle_R_Pitch_Link">
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <mass value="0.088" />
+      <inertia
+        ixx="8E-06"
+        ixy="0"
+        ixz="0"
+        iyy="8E-06"
+        iyz="0"
+        izz="1.4E-06" />
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="package://lapi_description/meshes/Ankle_R_Pitch_Link.STL" />
+      </geometry>
+      <material name="">
+        <color rgba="0.65098 0.61961 0.58824 1" />
+      </material>
+    </visual>
+  </link>
+  <joint name="Ankle_R_Pitch_Joint" type="revolute">
+    <origin xyz="0 0 -0.4" rpy="0 0 0" />
+    <parent link="Knee_R_Pitch_Link" />
+    <child link="Ankle_R_Pitch_Link" />
+    <axis xyz="0 1 0" />
+    <limit lower="-0.78" upper="0.57" effort="200" velocity="5" />
+  </joint>
+  <link name="Ankle_R_Roll_Link">
+    <inertial>
+      <origin xyz="0.006111 0 -0.039985" rpy="0 0 0" /> 
+      <mass value="0.758" />
+      <inertia
+        ixx="0.000766"
+        ixy="0"
+        ixz="0.000396"
+        iyy="0.003773"
+        iyz="0"
+        izz="0.003919" />
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="package://lapi_description/meshes/Ankle_R_Roll_Link.STL" />
+      </geometry>
+      <material name="">
+        <color rgba="0.89804 0.91765 0.92941 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0.037 0 -0.06" rpy="0 0 0" />
+      <geometry>
+        <box size="0.25 0.1 0.025" />
+      </geometry>
+    </collision>
+  </link>
+  <joint name="Ankle_R_Roll_Joint" type="revolute">
+    <origin xyz="0 0 0" rpy="0 0 0" />
+    <parent link="Ankle_R_Pitch_Link" />
+    <child link="Ankle_R_Roll_Link" />
+    <axis xyz="1 0 0" />
+    <limit lower="-0.35" upper="0.35" effort="200" velocity="5" />
+  </joint>
+</robot>
