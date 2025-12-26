@@ -1,6 +1,6 @@
 <mujoco model="lapi">
   <compiler angle="radian" meshdir="../meshes"/>
-    <option timestep="0.001"  tolerance="1e-10" solver="Newton" jacobian="dense" cone="pyramidal" gravity="0 0 -9.81">  <!--integrator="RK4"  iteration="50"-->
+    <option timestep="0.001"  tolerance="1e-6" solver="Newton" jacobian="dense" cone="pyramidal" gravity="0 0 -9.81">  <!--integrator="RK4"  iteration="50"-->
         <flag contact="enable" energy="enable"/>
     </option>
     <size njmax="500" nconmax="1000" />  
@@ -13,7 +13,7 @@
     <default class="collision">
       <geom contype="1" conaffinity="1" friction="1.0 0.3 0.3" margin="0.001" group="0"/>
     </default>
-        <joint damping="0.1" frictionloss="2" armature="0.01"/>
+        <joint damping="1.0" frictionloss="0" armature="0.01"/>
     </default>
 
   <asset>
