@@ -1,6 +1,6 @@
 <mujoco model="lapi">
   <compiler angle="radian" meshdir="../meshes"/>
-    <option timestep="0.001"  tolerance="1e-6" solver="Newton" jacobian="dense" cone="pyramidal" gravity="0 0 -9.81">  <!--integrator="RK4"  iteration="50"-->
+    <option timestep="0.001"  tolerance="1e-6" solver="Newton" jacobian="sparse" cone="pyramidal" gravity="0 0 -9.81">  <!--integrator="RK4"  iteration="50"-->
         <flag contact="enable" energy="enable"/>
     </option>
     <size njmax="500" nconmax="1000" />  
@@ -32,7 +32,7 @@
     <mesh name="Link_ankle_l_roll"  file="Ankle_L_Roll_Link.STL"/>
 
     <!-- Checkerboard texture and material for the floor -->
-    <texture name="checker_tex" type="2d" builtin="checker" rgb1="0.85 0.85 0.85" rgb2="0.15 0.15 0.15" width="512" height="512"/>
+    <texture name="checker_tex" type="2d" builtin="checker" rgb1="0.90 0.90 0.90" rgb2="0.55 0.65 0.85" width="512" height="512"/>
     <material name="mat_checker" texture="checker_tex" texrepeat="10 10" specular="0.2" shininess="0.1" reflectance="0.05"/>
   </asset>
 
@@ -42,7 +42,7 @@
 
     <geom name="floor" type="plane" size="5 5 0.1" pos="0 0 0" contype="1" conaffinity="1" friction="1 0.3 0.3" material="mat_checker"/>
 
-    <body name="base_link" pos="0 0 1.05" euler ="0 0 0">
+    <body name="base_link" pos="0 0 0.95" euler ="0 0 0">
       <freejoint name="float_base" />
       <inertial pos="0.027128 0.000293 0.10205" quat="1 0 0 0" mass="28" diaginertia="1.4945 1.222 1.0953"/>
       <geom class="visual" mesh="base_link" type="mesh" rgba="1 1 1 1"/>
@@ -153,18 +153,18 @@
   </worldbody>
 
   <actuator>
-    <motor name="m_Hip_L_Roll"    joint="Hip_L_Roll_Joint"    gear="1" ctrllimited="true" ctrlrange="-200 200"/>
-    <motor name="m_Hip_L_Yaw"     joint="Hip_L_Yaw_Joint"     gear="1" ctrllimited="true" ctrlrange="-200 200"/>
-    <motor name="m_Hip_L_Pitch"   joint="Hip_L_Pitch_Joint"   gear="1" ctrllimited="true" ctrlrange="-200 200"/>
-    <motor name="m_Knee_L_Pitch"  joint="Knee_L_Pitch_Joint"  gear="1" ctrllimited="true" ctrlrange="-200 200"/>
-    <motor name="m_Ankle_L_Pitch" joint="Ankle_L_Pitch_Joint" gear="1" ctrllimited="true" ctrlrange="-200 200"/>
-    <motor name="m_Ankle_L_Roll"  joint="Ankle_L_Roll_Joint"  gear="1" ctrllimited="true" ctrlrange="-200 200"/>
-    <motor name="Hip_R_Roll"      joint="Hip_R_Roll_Joint"    gear="1" ctrllimited="true" ctrlrange="-200 200"/>
-    <motor name="Hip_R_Yaw"       joint="Hip_R_Yaw_Joint"     gear="1" ctrllimited="true" ctrlrange="-200 200"/>
-    <motor name="Hip_R_Pitch"     joint="Hip_R_Pitch_Joint"   gear="1" ctrllimited="true" ctrlrange="-200 200"/>
-    <motor name="Knee_R_Pitch"    joint="Knee_R_Pitch_Joint"  gear="1" ctrllimited="true" ctrlrange="-200 200"/>
-    <motor name="Ankle_R_Pitch"   joint="Ankle_R_Pitch_Joint" gear="1" ctrllimited="true" ctrlrange="-200 200"/>
-    <motor name="Ankle_R_Roll"    joint="Ankle_R_Roll_Joint"  gear="1" ctrllimited="true" ctrlrange="-200 200"/>
+    <motor name="m_Hip_L_Roll"      joint="Hip_L_Roll_Joint"    gear="1" ctrllimited="true" ctrlrange="-200 200"/>
+    <motor name="m_Hip_L_Yaw"       joint="Hip_L_Yaw_Joint"     gear="1" ctrllimited="true" ctrlrange="-200 200"/>
+    <motor name="m_Hip_L_Pitch"     joint="Hip_L_Pitch_Joint"   gear="1" ctrllimited="true" ctrlrange="-300 300"/>
+    <motor name="m_Knee_L_Pitch"    joint="Knee_L_Pitch_Joint"  gear="1" ctrllimited="true" ctrlrange="-300 300"/>
+    <motor name="m_Ankle_L_Pitch"   joint="Ankle_L_Pitch_Joint" gear="1" ctrllimited="true" ctrlrange="-200 200"/>
+    <motor name="m_Ankle_L_Roll"    joint="Ankle_L_Roll_Joint"  gear="1" ctrllimited="true" ctrlrange="-200 200"/>
+    <motor name="m_Hip_R_Roll"      joint="Hip_R_Roll_Joint"    gear="1" ctrllimited="true" ctrlrange="-200 200"/>
+    <motor name="m_Hip_R_Yaw"       joint="Hip_R_Yaw_Joint"     gear="1" ctrllimited="true" ctrlrange="-200 200"/>
+    <motor name="m_Hip_R_Pitch"     joint="Hip_R_Pitch_Joint"   gear="1" ctrllimited="true" ctrlrange="-300 300"/>
+    <motor name="m_Knee_R_Pitch"    joint="Knee_R_Pitch_Joint"  gear="1" ctrllimited="true" ctrlrange="-300 300"/>
+    <motor name="m_Ankle_R_Pitch"   joint="Ankle_R_Pitch_Joint" gear="1" ctrllimited="true" ctrlrange="-200 200"/>
+    <motor name="m_Ankle_R_Roll"    joint="Ankle_R_Roll_Joint"  gear="1" ctrllimited="true" ctrlrange="-200 200"/>
   </actuator>
 
   <sensor>

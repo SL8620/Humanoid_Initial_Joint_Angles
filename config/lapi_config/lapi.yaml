@@ -1,0 +1,74 @@
+# =========================
+# Global simulation/control config
+# =========================
+
+pd:
+  # If false: use global kp/kd for all joints
+  # If true : use per-joint kp/kd in "joints" section (falls back to global if missing)
+  per_joint_kp_kd: true
+
+  # Global PD gains (used when per_joint_kp_kd=false, or as fallback)
+  kp: 220.0
+  kd: 10.0
+
+  # Desired joint velocity (rad/s), often 0 for standing
+  qd_des: 0.0
+
+  # Feedforward torque (Nm), often 0 for standing
+  tau_ff: 0.0
+
+targets:
+  # 12 DOF target angles (radians). Unspecified joints default to 0 in code if you keep that logic.
+  Hip_L_Roll_Joint:    0.00
+  Hip_L_Yaw_Joint:     0.00
+  Hip_L_Pitch_Joint:  -0.4
+  Knee_L_Pitch_Joint:  0.6
+  Ankle_L_Pitch_Joint: -0.3
+  Ankle_L_Roll_Joint:  0.00
+
+  Hip_R_Roll_Joint:    0.00
+  Hip_R_Yaw_Joint:     0.00
+  Hip_R_Pitch_Joint:  -0.4
+  Knee_R_Pitch_Joint:  0.6
+  Ankle_R_Pitch_Joint: -0.3
+  Ankle_R_Roll_Joint:  0.00
+
+# Optional: per-joint overrides (only used if pd.per_joint_kp_kd=true)
+joints:
+  Hip_L_Roll_Joint:    { kp: 180.0, kd: 2.0 }
+  Hip_L_Yaw_Joint:     { kp: 120.0, kd: 2.0 }
+  Hip_L_Pitch_Joint:   { kp: 450.0, kd: 2.0 }
+  Knee_L_Pitch_Joint:  { kp: 450.0, kd: 5.0 }
+  Ankle_L_Pitch_Joint: { kp: 400.0, kd: 2.0 }
+  Ankle_L_Roll_Joint:  { kp: 200.0, kd: 3.0 }
+
+  Hip_R_Roll_Joint:    { kp: 180.0, kd: 2.0 }
+  Hip_R_Yaw_Joint:     { kp: 120.0, kd: 2.0 }
+  Hip_R_Pitch_Joint:   { kp: 450.0, kd: 2.0 }
+  Knee_R_Pitch_Joint:  { kp: 450.0, kd: 5.0 }
+  Ankle_R_Pitch_Joint: { kp: 400.0, kd: 2.0 }
+  Ankle_R_Roll_Joint:  { kp: 200.0, kd: 3.0 }
+
+# Optional: extra safety clamp (in addition to actuator ctrlrange in XML)
+# If you enable this in your code, clamp torque to these limits.
+limits:
+  enabled: false
+  Hip_L_Roll_Joint:    [-200.0, 200.0]
+  Hip_L_Yaw_Joint:     [-300.0, 300.0]
+  Hip_L_Pitch_Joint:   [-300.0, 300.0]
+  Knee_L_Pitch_Joint:  [-300.0, 300.0]
+  Ankle_L_Pitch_Joint: [-200.0, 200.0]
+  Ankle_L_Roll_Joint:  [-200.0, 200.0]
+
+  Hip_R_Roll_Joint:    [-200.0, 200.0]
+  Hip_R_Yaw_Joint:     [-200.0, 200.0]
+  Hip_R_Pitch_Joint:   [-300.0, 300.0]
+  Knee_R_Pitch_Joint:  [-300.0, 300.0]
+  Ankle_R_Pitch_Joint: [-200.0, 200.0]
+  Ankle_R_Roll_Joint:  [-200.0, 200.0]
+
+# If you later add ZMP/support visualization:
+contacts:
+  floor_geom: "floor"
+  foot_geoms: ["left_sole", "right_sole"]
+  min_normal_force: 10.0

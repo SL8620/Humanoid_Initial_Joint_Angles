@@ -1,1 +1,1 @@
-Mujoco Version 3.4.0
+pip install mujoco==3.3.0
