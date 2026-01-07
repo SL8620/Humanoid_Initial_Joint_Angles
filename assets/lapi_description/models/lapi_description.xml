@@ -145,7 +145,7 @@
         </body>
       </body>
 
-      <body name="site" pos="0 0.133 0.03605">
+      <body name="site" pos="0.03605 0 - 0.133">
         <site name="imu" pos="0 0 0"/>
       </body>
 
